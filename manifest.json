@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "Window Layout Resizer",
+  "description": "Resize the current window into different customizable layouts (Multiple monitors are supported).",
+  "version": "0.1.0",
+  "icons": {
+    "16": "Content/Images/16.png",
+    "24": "Content/Images/24.png",
+    "32": "Content/Images/32.png",
+    "64": "Content/Images/64.png",
+    "128": "Content/Images/128.png"
+  },
+  "browser_action": {
+    "default_icon": "Content/Images/16.png",
+    "default_popup": "popup.html"
+  },
+  "options_ui": {
+    "page": "Option.html",
+    "chrome_style": true,
+    "open_in_tab": false
+  },
+  "background":{
+    "scripts":["Scripts/background.js"],
+    "persistent":false
+  },
+  "permissions": [
+    "storage",
+    "notifications"
+  ],
+  "homepage_url": "http://add0n.com/layout-resizer.html"
+}

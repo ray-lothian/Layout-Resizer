@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'OpenSans';
+  src: url('font/OpenSans-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Vollkorn';
+  src: url('font/Vollkorn-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
