@@ -38,7 +38,11 @@ header
   z-index: 1;
   color:#fff;
 }
-header > i
+header > span >a
+{
+  text-decoration: underline;
+}
+header > i, header> div >i
 {
   font-size: x-large;
   cursor: pointer;
@@ -162,6 +166,18 @@ background-color: white;
     white-space: nowrap;
     cursor: pointer;
     border-radius: 0.3em;
+}
+
+.sepButton-light
+{
+  background:#eee;
+  color:#000;
+  box-shadow: 0 2px 12px #444;
+}
+.sepButton-light:hover
+{
+  background-color: #f5f5f5 !important;
+  opacity: 1 !important;
 }
 
     .sepButton:hover {

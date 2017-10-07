@@ -1,21 +1,14 @@
 'use strict';
 
-chrome.runtime.onMessage.addListener(message => {
-  const notificationOptions = {
-    type: 'basic',
-    title: 'Success Operation',
-    iconUrl: 'Content/Images/24.png'
-  };
-  if (message === 'success' || message === 'error') {
-    if (message === 'success') {
-      notificationOptions.message = 'The operation was successful.';
-    }
-    else {
-      notificationOptions.message = `You have reached the maximum number of allowed configurations!
-
-Delete at least one configuration and try again.`;
-    }
-    chrome.notifications.create('notification', notificationOptions);
+chrome.runtime.onMessage.addListener(request => {
+  if (request.method === 'notify') {
+    const notificationOptions = {
+      type: 'basic',
+      title: 'Success Operation',
+      iconUrl: 'Content/Images/24.png',
+      message: request.message
+    };
+    chrome.notifications.create(notificationOptions);
   }
 });
 

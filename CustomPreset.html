@@ -10,48 +10,109 @@
 </head>
 
 <body>
+  <div class="">
+
+
   <table>
-    <tr>
-      <td>Top:</td>
-      <td>
-        <input type="text" id="txtTop" class="textBox" name="" value="">
-      </td>
-      <td>%</td>
-    </tr>
-    <tr>
-      <td>Left:</td>
-      <td>
-        <input type="text" id="txtLeft" class="textBox" name="" value="">
-      </td>
-      <td>%</td>
-    </tr>
-    <tr>
-      <td>Width:</td>
-      <td>
-        <input type="text" id="txtWidth" class="textBox" name="" value="">
-      </td>
-      <td>%</td>
-    </tr>
-    <tr>
-      <td>Height:</td>
-      <td>
-        <input type="text" id="txtHeight" class="textBox" name="" value="">
-      </td>
-      <td>%</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td>
-        <a class="sepButton" id="savePreset">Save Preset</a>
-      </td>
-    </tr>
+    <colgroup>
+      <col>
+      <col>
+      <col width="30">
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Mode:</th>
+        <th id="mode">
+          <label><input type="radio" name="mode" value="percent" checked> Percent</label>
+          <label><input type="radio" name="mode" value="px"> Pixel</label>
+        </th>
+      </tr>
+    </thead>
+    <tbody id="dims">
+      <tr>
+        <td>Top:</td>
+        <td>
+          <input type="text" id="txtTop" min="0" max="100" class="textBox" name="" value="" readonly>
+        </td>
+      </tr>
+      <tr>
+        <td>Left:</td>
+        <td>
+          <input type="text" id="txtLeft" min="0" max="100" class="textBox" name="" value="" readonly>
+        </td>
+      </tr>
+      <tr>
+        <td>Width:</td>
+        <td>
+          <input type="text" id="txtWidth" min="0" max="100" class="textBox" name="" value="" readonly>
+        </td>
+      </tr>
+      <tr>
+        <td>Height:</td>
+        <td>
+          <input type="text" id="txtHeight" min="0" max="100" class="textBox" name="" value="" readonly>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <a class="sepButton" id="savePreset" disabled>Save Preset</a>
+        </td>
+      </tr>
+    </tbody>
   </table>
-  <div class="wrapper" id="wrapper">
-    <div class="area" id="area">
-      <span class="sizeInfo" id="sizeInfo"> 230 * 542</span>
     </div>
+  <div class="wrapper" id="wrapper">
+    <div id="display">
+        <table width="100%" height="100%">
+          <tbody>
+            <tr>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+            </tr>
+            <tr>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+            </tr>
+            <tr>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+            </tr>
+            <tr>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+            </tr>
+            <tr>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+            </tr>
+            <tr>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+            </tr>
+            <tr>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+            </tr>
+            <tr>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+            </tr>
+            <tr>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+            </tr>
+            <tr>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+              <td> </td><td> </td><td> </td><td> </td><td> </td>
+            </tr>
+          </tbody>
+        </table>
+        <div id="box"></div>
+      </div>
   </div>
-  <script src="Scripts/CustomPreset.js" charset="utf-8"></script>
+  <script src="Scripts/Option.js" charset="utf-8"></script>
+  <script src="Scripts/OptionInfo.js" charset="utf-8"></script>
 </body>
 
 </html>

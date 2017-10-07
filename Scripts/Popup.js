@@ -1,11 +1,12 @@
     var main = document.getElementsByTagName('main')[0];
+    var resetPreset = document.getElementById('resetPreset');
     var svgNS = "http://www.w3.org/2000/svg";
 
     var presetsClass;
     var data;
 
     document.addEventListener('DOMContentLoaded', () => {
-      chrome.storage.sync.get(["presets"], results => {
+      chrome.storage.local.get(["presets"], results => {
         if (results.presets !== undefined) {
           data = results.presets;
         data.sort(Compare);
@@ -19,7 +20,7 @@
           request.onload = () => {
             if (request.status === 200) {
               data = JSON.parse(request.responseText).presets;
-              chrome.storage.sync.set({
+              chrome.storage.local.set({
                 "presets": data
               }, () => {
                 Initialize();
@@ -50,7 +51,7 @@
             presets[i].setAttribute('data-sortorder',i);
             data.find(p=>p.id==presets[i].getAttribute('data-id')).sortorder=i;
             }
-          chrome.storage.sync.set({
+          chrome.storage.local.set({
             "presets": data
           }, () => {
 
@@ -74,7 +75,7 @@
         btnRemove.className = "icon-trash";
         btnRemove.setAttribute('data-removeElem', preset.id);
         var sizeElem = document.createElement('span');
-        sizeElem.innerHTML = Math.round(preset.width / 100 * screen.width) + ' * ' +
+        sizeElem.textContent = Math.round(preset.width / 100 * screen.width) + ' * ' +
                              Math.round(preset.height/100 * screen.height);
         var img = document.createElement('div');
         var canvas = document.createElement('canvas');
@@ -110,6 +111,8 @@
     var selectedElem;
     document.addEventListener('click', (e) => {
       let dialog = document.getElementsByClassName("dialogWrapper")[0];
+      let dialogReset = document.getElementsByClassName("dialogWrapper")[1];
+
       if (e.target.className == "icon-trash") {
         dialog.style.display = "flex";
         selectedElem = e.target.parentElement.getAttribute('data-id');
@@ -139,6 +142,9 @@
         case "btnCancel":
           dialog.style.display = "none";
           break;
+          case "btnResetCancel":
+            dialogReset.style.display = "none";
+            break;
         case "btnOk":
           dialog.style.display = "none";
           var dataID = selectedElem;
@@ -153,11 +159,27 @@
             btnEdit.classList.remove('editMode-cancel');
             btnEdit.state = undefined;
           }
+            data.sort(Compare);
           for (var i = 0; i < data.length; i++) {
             CreatePreset(data[i]);
           }
           break;
+          case "btnResetOk":
+          chrome.storage.local.remove('presets', () => chrome.runtime.sendMessage({
+            method: 'notify',
+            message: 'Layouts are reset to the default values'
+          }));
 
+          const request = new XMLHttpRequest();
+          request.open('GET', '../Content/Data.json');
+          request.onload = () => {
+            data = JSON.parse(request.responseText).presets;
+            EmptyMain();
+            Initialize();
+          };
+          request.send();
+            dialogReset.style.display = "none";
+          break;
         default:
       }
 
@@ -198,7 +220,7 @@
         obj.isempty=true;
       }
     });
-      chrome.storage.sync.set({
+      chrome.storage.local.set({
         "presets": data
       }, () => {
 
@@ -212,3 +234,7 @@
         return -1;
       return 0;
     }
+    resetPreset.addEventListener('click', () => {
+      let dialogForReset = document.getElementsByClassName("dialogWrapper")[1];
+        dialogForReset.style.display = "flex";
+    });
