@@ -15,7 +15,7 @@
     "default_popup": "popup.html"
   },
   "background":{
-    "scripts":["Scripts/background.js"],
+    "scripts":["Scripts/Resizer.js", "Scripts/background.js"],
     "persistent":false
   },
   "permissions": [
@@ -27,6 +27,32 @@
     "gecko": {
       "id": "{5ab9d1ca-5eb0-41d5-95c3-e0d81b14a002}",
       "strict_min_version": "52.0"
+    }
+  },
+  "commands": {
+    "resize0": {
+      "description": "Resize to template #1",
+      "suggested_key": {
+        "default": "MacCtrl+F9"
+      }
+    },
+    "resize1": {
+      "description": "Resize to template #2",
+      "suggested_key": {
+        "default": "MacCtrl+F10"
+      }
+    },
+    "resize2": {
+      "description": "Resize to template #3",
+      "suggested_key": {
+        "default": "MacCtrl+F11"
+      }
+    },
+    "resize3": {
+      "description": "Resize to template #4",
+      "suggested_key": {
+        "default": "MacCtrl+F12"
+      }
     }
   }
 }

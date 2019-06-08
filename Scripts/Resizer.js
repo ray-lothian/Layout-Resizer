@@ -1,5 +1,7 @@
 'use strict'
 
+var data
+
 function loadPresets(callback) {
   chrome.storage.local.get(["presets"], results => {
     if (results.presets !== undefined) {
