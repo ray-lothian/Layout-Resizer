@@ -33,3 +33,21 @@ chrome.storage.local.get({
   const {name, version} = chrome.runtime.getManifest();
   chrome.runtime.setUninstallURL('http://add0n.com/feedback.html?name=' + name + '&version=' + version);
 }
+
+/**
+ * Add event listener for keyboard commands
+ */
+browser.commands.onCommand.addListener((name) => {
+  // Trigger the preset with the index corresponding to the last letter
+  // of the name of the keyboard shortcut triggered (as defined in manifest)
+  var triggered = parseInt(name.slice(-1), 10)
+
+  loadPresets(presets => {
+    var preset = presets[triggered]
+    let x = parseInt(preset.left)
+    let y = parseInt(preset.top)
+    let w = parseInt(preset.width)
+    let h = parseInt(preset.height)
+    resizeWindow(x, y, w, h);
+  })
+})

@@ -5,33 +5,13 @@
     var presetsClass;
     var data;
 
-    document.addEventListener('DOMContentLoaded', () => {
-      chrome.storage.local.get(["presets"], results => {
-        if (results.presets !== undefined) {
-          data = results.presets;
-        data.sort(Compare);
-          Initialize();
-        } else {
-          let requestURL = '../Content/Data.json';
-          let request = new XMLHttpRequest();
-          request.open('GET', requestURL);
-          request.send();
 
-          request.onload = () => {
-            if (request.status === 200) {
-              data = JSON.parse(request.responseText).presets;
-              chrome.storage.local.set({
-                "presets": data
-              }, () => {
-                Initialize();
-              });
-            }
-          };
-        }
-      });
+    document.addEventListener('DOMContentLoaded', () => {
+      loadPresets(Initialize)
     });
 
-    function Initialize() {
+    function Initialize(loadedData) {
+      data = loadedData
       for (var i = 0; i < data.length; i++) {
         CreatePreset(data[i]);
       }
@@ -159,7 +139,7 @@
             btnEdit.classList.remove('editMode-cancel');
             btnEdit.state = undefined;
           }
-            data.sort(Compare);
+            data.sort(comparePresets);
           for (var i = 0; i < data.length; i++) {
             CreatePreset(data[i]);
           }
@@ -188,7 +168,7 @@
         let y = parseInt(e.target.getAttribute('data-top'));
         let w = parseInt(e.target.getAttribute('data-width'));
         let h = parseInt(e.target.getAttribute('data-height'));
-        ResizeWindow(x, y, w, h);
+        resizeWindow(x, y, w, h);
 
       }
     });
@@ -199,18 +179,6 @@
       while (main.firstChild) {
         main.removeChild(main.firstChild);
       }
-    }
-
-    function ResizeWindow(x, y, w, h) {
-      chrome.windows.getCurrent(function(wind) {
-        var updateInfo = {
-          left: screen.availLeft + Math.round(x / 100 * screen.availWidth),
-          top: screen.availTop + Math.round(y / 100 * screen.availHeight),
-          width:Math.round(w / 100 * screen.availWidth),
-          height:Math.round(h / 100 * screen.availHeight)
-        };
-        chrome.windows.update(wind.id, updateInfo, () => window.close());
-      });
     }
 
     function RemovePreset(dataID) {
@@ -225,14 +193,6 @@
       }, () => {
 
       });
-    }
-
-    function Compare(a, b) {
-      if (parseInt(a.sortorder) > parseInt(b.sortorder))
-        return 1;
-      if (parseInt(a.sortorder) < parseInt(b.sortorder))
-        return -1;
-      return 0;
     }
     resetPreset.addEventListener('click', () => {
       let dialogForReset = document.getElementsByClassName("dialogWrapper")[1];
