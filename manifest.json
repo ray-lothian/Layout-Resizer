@@ -33,25 +33,25 @@
     "resize0": {
       "description": "Resize to template #1",
       "suggested_key": {
-        "default": "MacCtrl+F9"
+        "default": "MacCtrl+Shift+7"
       }
     },
     "resize1": {
       "description": "Resize to template #2",
       "suggested_key": {
-        "default": "MacCtrl+F10"
+        "default": "MacCtrl+Shift+8"
       }
     },
     "resize2": {
       "description": "Resize to template #3",
       "suggested_key": {
-        "default": "MacCtrl+F11"
+        "default": "MacCtrl+Shift+9"
       }
     },
     "resize3": {
       "description": "Resize to template #4",
       "suggested_key": {
-        "default": "MacCtrl+F12"
+        "default": "MacCtrl+Shift+0"
       }
     }
   }

@@ -35,11 +35,14 @@ chrome.storage.local.get({
 }
 
 /**
- * Add event listener for keyboard commands
+ * Event listener for keyboard commands
+ * 
+ * This event listener binds to keyboard shortcuts defined in `manifest.json`.
+ * It triggers the preset with the index concerting to the last digit of
+ * the keyboard shortcut preset's name. That is, the shortcut `resize0` would
+ * trigger the first preset.
  */
-browser.commands.onCommand.addListener((name) => {
-  // Trigger the preset with the index corresponding to the last letter
-  // of the name of the keyboard shortcut triggered (as defined in manifest)
+function shortcutHandler(name) {
   var triggered = parseInt(name.slice(-1), 10)
 
   loadPresets(presets => {
@@ -50,4 +53,10 @@ browser.commands.onCommand.addListener((name) => {
     let h = parseInt(preset.height)
     resizeWindow(x, y, w, h);
   })
-})
+};
+
+try {
+  browser.commands.onCommand.addListener(shortcutHandler);
+} catch(err) {
+  chrome.commands.onCommand.addListener(shortcutHandler);
+}

@@ -4,6 +4,7 @@
 
     var presetsClass;
     var data;
+    var shortcuts;
 
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -12,37 +13,50 @@
 
     function Initialize(loadedData) {
       data = loadedData
-      for (var i = 0; i < data.length; i++) {
-        CreatePreset(data[i]);
+        
+      function initWithBrowserCommands(browserCommands) {
+        shortcuts = browserCommands.filter(cmd => cmd.name.match(/resize\d/))
+
+        for (var i = 0; i < data.length; i++) {
+          CreatePreset(data[i], i);
+        }
+
+        Sortable.create(main, {
+          animation: 250,
+          onStart: function(evt) {
+            var presets = document.getElementsByClassName('preset');
+            for (var i = 0; i < presets.length; i++) {
+              presets[i].classList.add('presetDisableHover');
+            }
+          },
+          onEnd: function() {
+            var presets = document.getElementsByClassName('preset');
+            for (var i = 0; i < presets.length; i++) {
+              presets[i].classList.remove('presetDisableHover');
+              presets[i].setAttribute('data-sortorder',i);
+              data.find(p=>p.id==presets[i].getAttribute('data-id')).sortorder=i;
+              }
+            chrome.storage.local.set({
+              "presets": data
+            }, () => {
+
+            });
+          }
+        });
       }
 
-      Sortable.create(main, {
-        animation: 250,
-        onStart: function(evt) {
-          var presets = document.getElementsByClassName('preset');
-          for (var i = 0; i < presets.length; i++) {
-            presets[i].classList.add('presetDisableHover');
-          }
-        },
-        onEnd: function() {
-          var presets = document.getElementsByClassName('preset');
-          for (var i = 0; i < presets.length; i++) {
-            presets[i].classList.remove('presetDisableHover');
-            presets[i].setAttribute('data-sortorder',i);
-            data.find(p=>p.id==presets[i].getAttribute('data-id')).sortorder=i;
-            }
-          chrome.storage.local.set({
-            "presets": data
-          }, () => {
-
-          });
-        }
-      });
+      try {
+        browser.commands.getAll().then(initWithBrowserCommands)
+      } catch (err) {
+        chrome.commands.getAll((initWithBrowserCommands))
+      }
     }
 
-    function CreatePreset(preset) {
+    function CreatePreset(preset, index) {
       if(preset.isempty==false)
       {
+        var shortcut = index < shortcuts.length ? shortcuts[index] : null;
+
         var presetElem = document.createElement('div');
         presetElem.className = 'preset';
         presetElem.setAttribute('data-sortorder',preset.sortorder);
@@ -66,6 +80,13 @@
         presetElem.appendChild(sizeElem);
         presetElem.appendChild(img);
         presetElem.appendChild(canvas);
+        if(shortcut != null) {
+          var key = shortcut.shortcut.replace('MacCtrl', 'Ctrl')
+          var hotkeyInfo = document.createElement('span');
+          hotkeyInfo.className = 'hotkey';
+          hotkeyInfo.textContent = key
+          presetElem.appendChild(hotkeyInfo)
+        }
         main.appendChild(presetElem);
         DrawRec(canvas.id, Math.round(preset.left /100 * 45.6), Math.round(preset.top / 100 * 30), Math.round(preset.width / 100 *  45.6), Math.round(preset.height/100  * 30));
       }
@@ -141,7 +162,7 @@
           }
             data.sort(comparePresets);
           for (var i = 0; i < data.length; i++) {
-            CreatePreset(data[i]);
+            CreatePreset(data[i], i);
           }
           break;
           case "btnResetOk":

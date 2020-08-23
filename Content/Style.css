@@ -196,3 +196,10 @@ background-color: white;
   font-weight: bold !important;
   font-family: OpenSans !important;
 }
+
+.hotkey {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  font-size: 0.7em;
+}
