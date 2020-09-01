@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Window Layout Resizer",
   "description": "Resize the current window into different customizable layouts (Multiple monitors are supported).",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "icons": {
     "16": "Content/Images/16.png",
     "24": "Content/Images/24.png",
@@ -11,48 +11,33 @@
     "128": "Content/Images/128.png"
   },
   "browser_action": {
-    "default_icon": "Content/Images/16.png",
     "default_popup": "popup.html"
   },
   "background":{
-    "scripts":["Scripts/Resizer.js", "Scripts/background.js"],
+    "scripts":[
+      "Scripts/Resizer.js",
+      "Scripts/background.js"
+    ],
     "persistent":false
   },
   "permissions": [
     "storage",
+    "system.display",
     "notifications"
   ],
-  "homepage_url": "http://add0n.com/layout-resizer.html",
-  "applications": {
-    "gecko": {
-      "id": "{5ab9d1ca-5eb0-41d5-95c3-e0d81b14a002}",
-      "strict_min_version": "52.0"
-    }
-  },
+  "homepage_url": "https://add0n.com/layout-resizer.html",
   "commands": {
     "resize0": {
-      "description": "Resize to template #1",
-      "suggested_key": {
-        "default": "MacCtrl+Shift+7"
-      }
+      "description": "Resize to template #1"
     },
     "resize1": {
-      "description": "Resize to template #2",
-      "suggested_key": {
-        "default": "MacCtrl+Shift+8"
-      }
+      "description": "Resize to template #2"
     },
     "resize2": {
-      "description": "Resize to template #3",
-      "suggested_key": {
-        "default": "MacCtrl+Shift+9"
-      }
+      "description": "Resize to template #3"
     },
     "resize3": {
-      "description": "Resize to template #4",
-      "suggested_key": {
-        "default": "MacCtrl+Shift+0"
-      }
+      "description": "Resize to template #4"
     }
   }
 }
