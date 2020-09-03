@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Window Layout Resizer",
   "description": "Resize the current window into different customizable layouts (Multiple monitors are supported).",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "icons": {
     "16": "Content/Images/16.png",
     "24": "Content/Images/24.png",
